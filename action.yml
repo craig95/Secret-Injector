@@ -1,5 +1,6 @@
 name: 'Secret Injector'
-description: 'GitHub Action to inject Secrets & env values referenced in all project files'
+author: 'github.com/Inrixia'
+description: 'GitHub Action to inject Secrets & env values referenced in project files'
 inputs:
   secrets:
     description: 'Workflow secrets'
@@ -12,3 +13,7 @@ inputs:
 runs:
   using: 'node12'
   main: 'index.js'
+  
+branding:
+  icon: "activity"
+  color: "green"

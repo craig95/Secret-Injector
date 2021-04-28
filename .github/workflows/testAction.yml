@@ -19,6 +19,6 @@ jobs:
 
       - name: Validate testFile.json has correct content
         run: |
-          echo "${{ toJson(secrets) }}" >> .secrets.json
-          echo "${{ toJson(env) }}" >> .env.json
+          printf "${{ toJson(secrets) }}" >> .secrets.json
+          printf "${{ toJson(env) }}" >> .env.json
           npm test

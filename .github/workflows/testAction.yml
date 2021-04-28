@@ -1,3 +1,6 @@
+---
+name: "Tests"
+
 on: [push]
 env:
   cake: ${{ secrets.enviroment_cake }}
@@ -6,7 +9,7 @@ env:
 jobs:
   TestAction:
     runs-on: ubuntu-latest
-    name: Test action is working
+    name: Run tests
     steps:
       - name: Checkout
         uses: actions/checkout@v2

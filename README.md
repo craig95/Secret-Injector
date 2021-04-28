@@ -1,3 +1,4 @@
+[![Tests](https://github.com/Inrixia/Secret-Injector/actions/workflows/testAction.yml/badge.svg)](https://github.com/Inrixia/Secret-Injector/actions/workflows/testAction.yml)
 # Secret Injector
 
 Injects GitHub Actions Secrets & env values referenced in all project files.

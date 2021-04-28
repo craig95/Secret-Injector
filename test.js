@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const niceRead = fileString => {
+const niceRead = fileName => {
 	const fileString = fs.readFileSync(fileName)
 	try {
 		return JSON.parse(fileString)

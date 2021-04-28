@@ -4,7 +4,7 @@
   "description": "GitHub Action to inject Secrets & env values referenced in all project files",
   "main": "index.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "node validate.js"
   },
   "repository": {
     "type": "git",

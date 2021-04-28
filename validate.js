@@ -1,9 +1,18 @@
 const fs = require('fs');
 
-const secrets = JSON.parse(fs.readFileSync('.secrets.json'))
-const env = JSON.parse(fs.readFileSync('.env.json'))
+const niceParse = fileName => {
+	const fileString = fs.readFileSync(fileName)
+	try {
+		return JSON.parse(fileString)
+	} catch (err) {
+		throw new Error(`${err.message} while attempting to read ${fileName} = ${fileString}`);
+	}
+}
 
-const testFile = JSON.parse(fs.readFileSync('.testFile.json'))
+const secrets = niceParse('.secrets.json');
+const env = niceParse('.env.json');
+
+const testFile = niceParse('testFile.json');
 
 if (testFile["The secret cake is a"] !== secrets["cake"]) throw new Error("The secret cake does not match the secret!")
 if (testFile["The environmentally friendly cake is a"] !== env["cake"]) throw new Error("The environmentally friendly cake does not match the enviroment!")

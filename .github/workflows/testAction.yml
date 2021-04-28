@@ -17,11 +17,8 @@ jobs:
           secrets: ${{ toJson(secrets) }}
           env: ${{ toJson(env) }}
 
-      - name: Echo testFile.json contents
-        run: echo cat testFile.json
-
       - name: Validate testFile.json has correct content
         run: |
-          echo ${{ toJson(secrets) }} >> .secrets.json
-          echo ${{ toJson(env) }} >> .env.json
+          echo "${{ toJson(secrets) }}" >> .secrets.json
+          echo "${{ toJson(env) }}" >> .env.json
           npm test

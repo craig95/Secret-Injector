@@ -1,4 +1,3 @@
-const core = require('@actions/core');
 const fs = require('fs');
 
 const niceRead = fileString => {
@@ -11,7 +10,7 @@ const niceRead = fileString => {
 }
 
 const niceParse = key => {
-	keyString = core.getInput(key);
+	keyString = process.env[key];
 	try {
 		return JSON.parse(keyString);
 	} catch (err) {

@@ -21,7 +21,7 @@ jobs:
           env: ${{ toJson(env) }}
 
       - name: Validate testFile.json has correct content
-        with:
+        env:
           secrets: ${{ toJson(secrets) }}
           env: ${{ toJson(env) }}
         run: |

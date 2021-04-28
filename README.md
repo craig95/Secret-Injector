@@ -24,10 +24,11 @@ spec:
 2. Add the following to your workflow configuration file
 
 ```yml
-uses: Inrixia/secret-injector@v1
-with:
-  secrets: ${{ toJson(secrets) }}
-  env: ${{ toJson(env) }}
+- name: Secret Injector
+  uses: Inrixia/Secret-Injector@v1
+  with:
+    secrets: ${{ toJson(secrets) }}
+    env: ${{ toJson(env) }}
 ```
 
 3. During workflow execution, all project files will have GitHub secret or env values injected.

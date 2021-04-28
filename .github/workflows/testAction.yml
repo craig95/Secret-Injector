@@ -1,0 +1,16 @@
+on: [push]
+env:
+  TEST_ENV: This is a test value for environment variables
+
+jobs:
+  TestAction:
+    runs-on: ubuntu-latest
+    name: Test action is working
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test Action
+        uses: ./
+        with:
+          secrets: ${{ secrets }}
+          env: ${{ env }}

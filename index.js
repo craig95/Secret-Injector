@@ -1,5 +1,6 @@
 const core = require('@actions/core');
-const { readdirSync, lstatSync, readFileSync, writeFileSync } = require('fs')
+const { readdirSync, readFileSync, writeFileSync } = require('fs')
+const { isText } = require('istextorbinary')
 
 const safeParse = string => {
 	try {
@@ -27,9 +28,10 @@ const curryInjector = (secrets, env) => string => {
 }
 
 const recursiveInject = ((dir, injector) => {
-	for (const file of readdirSync(dir)) {
-		if (lstatSync(file).isDirectory() === true) recursiveInject(file, injector);
-		else writeFileSync(file, injector(readFileSync(file).toString()));
+	for (let file of readdirSync(dir, { withFileTypes: true })) {
+		file = `${dir}${file}`
+		if (file.isDirectory()) recursiveInject(`${file}/`, injector);
+		else if (file.isFile() && isText(file)) writeFileSync(file, injector(readFileSync(file).toString()));
 	}
 })
 

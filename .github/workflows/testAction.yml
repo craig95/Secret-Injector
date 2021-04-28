@@ -1,6 +1,6 @@
 on: [push]
 env:
-  cake: ${{ secrets.enviroment_cake }},
+  cake: ${{ secrets.enviroment_cake }}
   cube: sentient
 
 jobs:

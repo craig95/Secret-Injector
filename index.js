@@ -2,24 +2,24 @@ const core = require('@actions/core');
 const { readdirSync, readFileSync, writeFileSync } = require('fs')
 const { isText } = require('istextorbinary')
 
-const safeParse = string => {
+const safeParse = (string, whatIsAString) => {
 	try {
 		JSON.parse(string);
 	} catch (err) {
 		const cleanError = err.message.substr(0, "Unexpected token ".length) + err.message.substr(err.message.indexOf("in JSON"))
-		throw new Error(cleanError);
+		throw new Error(`${cleanError} while parsing ${whatIsAString}`);
 	}	
 }
 
 const curryInjector = (secrets, env) => string => {
 	if (secrets !==	"undefined") {
-		secrets = safeParse(secrets);
+		secrets = safeParse(secrets, "secrets");
 		for (const key in secrets) {
 			string = string.replace(new RegExp("\\$\\{\\{\\s*secrets\\."+key+"\\s*\\}\\}", "gi"), secrets[key]);
 		}
 	}
 	if (env !== "undefined") {
-		env = safeParse(env);
+		env = safeParse(env, "env");
 		for (const key in env) {
 			string = string.replace(new RegExp("\\$\\{\\{\\s*env\\."+key+"\\s*\\}\\}", "gi"), env[key]);
 		}

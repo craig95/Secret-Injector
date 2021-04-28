@@ -21,6 +21,9 @@ const niceParse = key => {
 const secrets = niceParse('secrets');
 const env = niceParse('env');
 
+console.log(`Using secrets: ${JSON.stringify(secrets)}`)
+console.log(`Using env: ${JSON.stringify(env)}`)
+
 const testFile = niceRead('testFile.json');
 
 if (testFile["The secret cake is a"] !== secrets["cake"]) 

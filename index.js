@@ -2,24 +2,24 @@ const core = require('@actions/core');
 const { readdirSync, readFileSync, writeFileSync } = require('fs')
 const { isText } = require('istextorbinary')
 
-const safeParse = (string, whatIsAString) => {
+const safeParse = key => {
 	try {
-		JSON.parse(string);
+		const string = core.getInput(key);
+		if (string === "undefined") return undefined;
+		return JSON.parse(string);
 	} catch (err) {
 		const cleanError = err.message.substr(0, "Unexpected token ".length) + err.message.substr(err.message.indexOf("in JSON"))
-		throw new Error(`${cleanError} while parsing ${whatIsAString}`);
+		throw new Error(`${cleanError} while parsing ${key}`);
 	}	
 }
 
 const curryInjector = (secrets, env) => string => {
-	if (secrets !==	"undefined") {
-		secrets = safeParse(secrets, "secrets");
+	if (secrets !==	undefined) {
 		for (const key in secrets) {
 			string = string.replace(new RegExp("\\$\\{\\{\\s*secrets\\."+key+"\\s*\\}\\}", "gi"), secrets[key]);
 		}
 	}
-	if (env !== "undefined") {
-		env = safeParse(env, "env");
+	if (env !== undefined) {
 		for (const key in env) {
 			string = string.replace(new RegExp("\\$\\{\\{\\s*env\\."+key+"\\s*\\}\\}", "gi"), env[key]);
 		}
@@ -36,8 +36,8 @@ const recursiveInject = ((dir, injector) => {
 })
 
 try {
-	const secrets = core.getInput('secrets');
-	const env = core.getInput('env');
+	secrets = safeParse("secrets");
+	env = safeParse("env");
 
 	recursiveInject('./', curryInjector(secrets, env));
 } catch (error) {

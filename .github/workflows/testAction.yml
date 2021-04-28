@@ -19,8 +19,8 @@ jobs:
 
       - name: Write out env and secrets to .secrets & .env to validate.
         run: |
-          printf ${{ toJson(secrets) }} >> .secrets.json
-          printf ${{ toJson(env) }} >> .env.json
+          printf "${{ toJson(toJson(secrets)) }}" >> .secrets.json
+          printf "${{ toJson(toJson(env)) }}" >> .env.json
 
       - name: Validate testFile.json has correct content
         run: |

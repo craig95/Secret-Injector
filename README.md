@@ -24,7 +24,7 @@ spec:
 2. Add the following to your workflow configuration file
 
 ```yml
-uses: inrixia/secret-injector@v1
+uses: Inrixia/secret-injector@v1
 with:
   secrets: ${{ toJson(secrets) }}
   env: ${{ toJson(env) }}

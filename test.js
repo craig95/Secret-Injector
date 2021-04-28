@@ -23,8 +23,13 @@ const env = niceParse('env');
 
 const testFile = niceRead('testFile.json');
 
-if (testFile["The secret cake is a"] !== secrets["cake"]) throw new Error("The secret cake does not match the secret!")
-if (testFile["The environmentally friendly cake is a"] !== env["cake"]) throw new Error("The environmentally friendly cake does not match the enviroment!")
-if (testFile["The enviroment cube is"] !== env["cube"]) throw new Error("The enviroment cube is not sentient!")
+if (testFile["The secret cake is a"] !== secrets["cake"]) 
+	throw new Error(`The secret cake does not match the secret! Expected: "${testFile["The secret cake is a"]}", Got: "${secrets["cake"]}"`)
+
+if (testFile["The environmentally friendly cake is a"] !== env["cake"]) 
+	throw new Error(`The environmentally friendly cake does not match the enviroment! Expected: "${testFile["The environmentally friendly cake is a"]}", Got: "${env["cake"]}"`)
+
+if (testFile["The enviroment cube is"] !== env["cube"]) 
+	throw new Error(`The enviroment cube is not sentient! Expected: "${testFile["The enviroment cube is"]}", Got: "${env["cube"]}"`)
 
 console.log("All checks passed!")

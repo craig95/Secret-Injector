@@ -20,8 +20,10 @@ const niceParse = key => {
 
 const lowerCaseKeys = obj => {
 	for (const key in obj) {
-		obj[key.toLowerCase()] = obj[key];
-		delete obj[key];
+		if (key.toLowerCase() !== key) {
+			obj[key.toLowerCase()] = obj[key];
+			delete obj[key];
+		}
 	}
 	return obj;
 }
@@ -40,6 +42,6 @@ const testFile = niceRead('testFile.json');
 
 testVar(testFile["The secret cake is a"], 					secrets["cake"], 	"The secret cake does not match the secret!")
 testVar(testFile["The environmentally friendly cake is a"], env["cake"], 		"The environmentally friendly cake does not match the enviroment!")
-testVar(testFile["The enviroment cube is"], 				env["cube"], 		"The enviroment cube is not sentient!")
+testVar(testFile["The environment cube is"], 				env["cube"], 		"The environment cube is not sentient!")
 
 console.log("All checks passed!")

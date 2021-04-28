@@ -5,7 +5,7 @@ Injects GitHub Actions Secrets & env values referenced in all project files.
 
 ## Example usage
 
-1. Create a file in the repository which references GitHub actions secret. For example, `manifests/service.yml`:
+1. Create a file in the repository which references a GitHub actions secret or env value. For example, `manifests/service.yml`:
 
 ```yml
 apiVersion: v1
@@ -23,8 +23,11 @@ spec:
 
 2. Add the following to your workflow configuration file
 
-```
+```yml
 uses: inrixia/secret-injector@v1
+with:
+  secrets: ${{ toJson(secrets) }}
+  env: ${{ toJson(env) }}
 ```
 
-3. During workflow execution, all project files will be parsed and the reference to a GitHub secret or env value will be injected.
+3. During workflow execution, all project files will have GitHub secret or env values injected.

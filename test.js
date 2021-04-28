@@ -35,8 +35,8 @@ const testVar = (received, expected, errorMsg) => {
 const secrets = lowerCaseKeys(niceParse('secrets'));
 const env = lowerCaseKeys(niceParse('env'));
 
-console.log(`Using secrets: ${JSON.stringify(secrets)}`)
-console.log(`Using env: ${JSON.stringify(env)}`)
+// console.log(`Using secrets: ${JSON.stringify(secrets)}`)
+// console.log(`Using env: ${JSON.stringify(env)}`)
 
 const testFile = niceRead('testFile.json');
 

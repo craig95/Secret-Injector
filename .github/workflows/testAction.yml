@@ -17,8 +17,11 @@ jobs:
           secrets: ${{ toJson(secrets) }}
           env: ${{ toJson(env) }}
 
+      - name: Write out env and secrets to .secrets & .env to validate.
+        run: |
+          printf ${{ toJson(secrets) }} >> .secrets.json
+          printf ${{ toJson(env) }} >> .env.json
+
       - name: Validate testFile.json has correct content
         run: |
-          printf "${{ toJson(secrets) }}" >> .secrets.json
-          printf "${{ toJson(env) }}" >> .env.json
           npm test

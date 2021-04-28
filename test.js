@@ -1,18 +1,28 @@
+const core = require('@actions/core');
 const fs = require('fs');
 
-const niceParse = fileName => {
+const niceRead = fileString => {
 	const fileString = fs.readFileSync(fileName)
 	try {
 		return JSON.parse(fileString)
 	} catch (err) {
-		throw new Error(`${err.message} while attempting to read ${fileName} = ${fileString}`);
+		throw new Error(`${err.message} while attempting to read & parse ${fileName} = ${fileString}`);
 	}
 }
 
-const secrets = niceParse('.secrets.json');
-const env = niceParse('.env.json');
+const niceParse = key => {
+	keyString = core.getInput(key);
+	try {
+		return JSON.parse(keyString);
+	} catch (err) {
+		throw new Error(`${err.message} while parsing ${key} = ${keyString}`);
+	}	
+}
 
-const testFile = niceParse('testFile.json');
+const secrets = niceParse('secrets');
+const env = niceParse('env');
+
+const testFile = niceRead('testFile.json');
 
 if (testFile["The secret cake is a"] !== secrets["cake"]) throw new Error("The secret cake does not match the secret!")
 if (testFile["The environmentally friendly cake is a"] !== env["cake"]) throw new Error("The environmentally friendly cake does not match the enviroment!")

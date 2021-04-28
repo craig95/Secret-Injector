@@ -1,0 +1,6 @@
+
+{
+	"The secret cake is a": "${{ SECRETS.cake }}",
+	"The environmentally friendly cake is a": "${{ env.cake }}",
+	"The enviroment cube is": "${{env.cube}}"
+}

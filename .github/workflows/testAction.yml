@@ -1,6 +1,7 @@
 on: [push]
 env:
-  TEST_ENV: This is a test value for environment variables
+  cake: ${{ secrets.enviroment_cake }},
+  cube: sentient
 
 jobs:
   TestAction:
@@ -9,8 +10,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Test Action
+
+      - name: Run Injector Action
         uses: ./
         with:
-          secrets: ${{  toJson(secrets) }}
+          secrets: ${{ toJson(secrets) }}
           env: ${{ toJson(env) }}
+
+      - name: Echo testFile.json contents
+        run: echo cat testFile.json
+
+      - name: Validate testFile.json has correct content
+        run: |
+          echo ${{ toJson(secrets) }} >> .secrets.json
+          echo ${{ toJson(env) }} >> .env.json
+          npm test

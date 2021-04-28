@@ -12,5 +12,5 @@ jobs:
       - name: Test Action
         uses: ./
         with:
-          secrets: ${{ secrets }}
-          env: ${{ env }}
+          secrets: ${{  toJson(secrets) }}"
+          env: ${{ toJson(env) }}

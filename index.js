@@ -28,10 +28,10 @@ const curryInjector = (secrets, env) => string => {
 }
 
 const recursiveInject = ((dir, injector) => {
-	for (let file of readdirSync(dir, { withFileTypes: true })) {
-		file = `${dir}${file}`
-		if (file.isDirectory()) recursiveInject(`${file}/`, injector);
-		else if (file.isFile() && isText(file)) writeFileSync(file, injector(readFileSync(file).toString()));
+	for (const file of readdirSync(dir, { withFileTypes: true })) {
+		const fileName = `${dir}${file.name}`
+		if (file.isDirectory()) recursiveInject(`${fileName}/`, injector);
+		else if (file.isFile() && isText(fileName)) writeFileSync(fileName, injector(readFileSync(fileName).toString()));
 	}
 })
 
